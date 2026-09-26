@@ -15,6 +15,10 @@ que eles dependem uns dos outros e o motivo dessa ordem.
 
 ---
 
+<div align="center">
+  <img width="150" alt="Microsoft Azure" src="https://github.com/user-attachments/assets/4f51bfbd-7e0e-4ce3-b216-d57ffaf18989" />
+</div>
+
 ## 1. Por que aprender Docker
 
 Antes de containers, rodar uma aplicação em outra máquina exigia
@@ -83,3 +87,67 @@ Sem ele, a aplicação roda, mas você não consegue acessá-la de fora.
 Um arquivo YAML que descreve vários containers juntos: imagens, portas, variáveis e volumes.
 É como escrever vários `docker run` de uma vez, em um só lugar.
 Com `docker compose up`, o ambiente inteiro sobe com um único comando.
+
+## 3. Fluxo visual
+
+```mermaid
+%%{init: {'theme':'base', 'themeVariables': {'fontSize':'15px'}}}%%
+flowchart TD
+    A["📜 <b>Dockerfile</b><br/><i>a receita</i>"]
+    B["🖼️ <b>Image</b><br/><i>o pacote congelado</i>"]
+    R["📮 <b>Registry</b><br/><i>a loja de imagens</i><br/>Docker Hub, ECR..."]
+
+    subgraph CP["🧩 Docker Compose  ·  docker compose up"]
+        direction TB
+        subgraph N["🌐 Network"]
+            direction LR
+            C1["📦 <b>Container</b><br/>sua aplicação"]
+            C2["📦 <b>Container</b><br/>ex.: banco de dados"]
+            C1 <-- "conversam pelo nome" --> C2
+        end
+        V["💾 <b>Volume</b><br/><i>dados que persistem</i>"]
+        C2 --- V
+    end
+
+    H["💻 <b>Seu PC</b><br/>localhost:porta"]
+
+    A -- "docker build" --> B
+    B -- "docker push" --> R
+    B -- "docker run" --> C1
+    R -- "docker pull<br/>(imagem pronta)" --> C2
+    C1 -- "-p host:container" --> H
+
+    classDef receita fill:#fce7f3,stroke:#ec4899,stroke-width:2px,color:#831843
+    classDef imagem fill:#f3e8ff,stroke:#c084fc,stroke-width:2px,color:#581c87
+    classDef registry fill:#fdf4ff,stroke:#e879f9,stroke-width:2px,color:#701a75
+    classDef container fill:#ede9fe,stroke:#a855f7,stroke-width:2px,color:#4c1d95
+    classDef volume fill:#fce7f3,stroke:#f472b6,stroke-width:2px,color:#831843
+    classDef final fill:#a855f7,stroke:#7e22ce,stroke-width:2px,color:#ffffff
+
+    class A receita
+    class B imagem
+    class R registry
+    class C1,C2 container
+    class V volume
+    class H final
+
+    style CP fill:#fdf2f8,stroke:#ec4899,stroke-width:2px,stroke-dasharray:6 4,color:#9d174d
+    style N fill:#faf5ff,stroke:#a855f7,stroke-width:2px,stroke-dasharray:4 4,color:#6b21a8
+    linkStyle default stroke:#c084fc,stroke-width:2px
+```
+
+
+---
+<div align="center">
+
+Se gostou, deixa uma ⭐
+
+<img width="200" alt="Image" src="https://github.com/user-attachments/assets/aca57b06-3ea1-49e4-96fb-b2a00b8f8918" />
+
+</div>
+
+<div align="center">
+Feito com 💙 por RegiMaria
+</div>
+
+<div align="center">
