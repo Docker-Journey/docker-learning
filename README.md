@@ -136,6 +136,9 @@ flowchart TD
     linkStyle default stroke:#c084fc,stroke-width:2px
 ```
 
+📮 Este diagrama foi gerado com 
+
+[mermaid.AI](https://mermaid.ai/app/projects/7a9d5482-c77c-4afc-af8f-889797ecad0f/diagrams/b87de9c8-3600-4848-b805-35c2f4951da6/version/v0.1/edit)
 
 ---
 <div align="center">
