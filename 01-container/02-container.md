@@ -4,11 +4,21 @@
 
 Se você está começando a estudar Docker, uma das primeiras coisas que precisa entender é a diferença entre **imagem** e **container**.
 
-Uma forma simples de visualizar isso é pensar em uma **fábrica de bicicletas**. 🚲
+Uma forma simples de visualizar isso é pensar na **IMAGEM** como uma **fábrica de bicicletas**.
+
+
+<p align="center">
+  <img
+    width="800"
+    height="400"
+    alt="Banner"
+    src="https://github.com/user-attachments/assets/f9274074-f10b-4c5d-b917-281b2ca1b657" 
+  />
+</p>
 
 ---
 
-## 📐 Imagem Docker = projeto/molde da bicicleta
+## Imagem Docker = É fábrica de bicicletas. Projeta o projeto/molde da bicicleta
 
 Imagine que temos o **projeto de um modelo de bicicleta**.
 
@@ -32,7 +42,7 @@ Uma imagem contém tudo o que é necessário para criar e executar um determinad
 
 ---
 
-## 🚲 Container = bicicleta produzida
+## Container = bicicleta produzida
 
 Agora imagine que você pega esse projeto e produz uma bicicleta.
 
@@ -53,7 +63,7 @@ docker run minha-imagem
 O resultado é um container.
 
 ```text
-              📐 IMAGEM DOCKER
+               IMAGEM DOCKER
            "Projeto da bicicleta"
                     │
              docker run
@@ -65,7 +75,7 @@ O resultado é um container.
 
 ---
 
-## 🎨 Vários containers podem usar a mesma imagem
+## Vários containers podem usar a mesma imagem
 
 Agora vem uma parte muito importante:
 
@@ -74,14 +84,14 @@ Agora vem uma parte muito importante:
 Imagine que temos uma única imagem:
 
 ```text
-📐 IMAGEM
+       IMAGEM
 "Projeto da bicicleta"
 ```
 
 A partir dela podemos criar:
 
 ```text
-                    📐 IMAGEM DOCKER
+                      IMAGEM DOCKER
                  "Projeto da bicicleta"
                            │
               ┌────────────┼────────────┐
@@ -98,7 +108,7 @@ Mas cada uma é uma **instância independente**.
 
 ---
 
-## 🧺 Cada container pode ter características próprias
+## Cada container pode ter características próprias
 
 Imagine agora:
 
@@ -150,7 +160,7 @@ Isso acontece porque cada container é uma **instância independente**.
 
 ---
 
-# 🏭 E onde entra o Docker Engine?
+# E onde entra o Docker Engine?
 
 Aqui fazemos uma pequena correção na analogia.
 
@@ -158,16 +168,16 @@ A **imagem não é exatamente a fábrica**.
 
 Uma maneira mais precisa de pensar é:
 
-> 🏭 **Docker Engine = fábrica que sabe produzir e executar**
+> **Docker Engine = fábrica que sabe produzir e executar**
 >
-> 📐 **Imagem = projeto/molde da bicicleta**
+> **Imagem = projeto/molde da bicicleta**
 >
-> 🚲 **Container = bicicleta produzida a partir do projeto**
+> **Container = bicicleta produzida a partir do projeto**
 
 Visualmente:
 
 ```text
-             📐 IMAGEM
+               IMAGEM
         "Projeto da bicicleta"
                   │
                   │ docker run
@@ -183,7 +193,7 @@ Visualmente:
 
 ---
 
-# 🔨 E onde entra o `docker build`?
+# E onde entra o `docker build`?
 
 Agora podemos conectar essa analogia com o que fazemos no terminal.
 
@@ -204,7 +214,7 @@ Dockerfile
     │
     │ docker build
     ↓
-📐 IMAGEM
+  IMAGEM
 pipeline_debug
 ```
 
@@ -212,7 +222,7 @@ O **Dockerfile** é como as instruções usadas para construir o nosso projeto/m
 
 ---
 
-# 🚲 E o `docker run`?
+# E o `docker run`?
 
 Depois que temos a imagem:
 
