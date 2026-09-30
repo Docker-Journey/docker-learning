@@ -2,7 +2,7 @@
 
 > **Resumo:** Se o contêiner é a casa construída, a **Imagem** é a planta arquitetônica e a fundação. Ela é um pacote somente leitura (*read-only*) que contém tudo o que a sua aplicação precisa para rodar: sistema operacional simplificado, código, bibliotecas e variáveis de ambiente.
 
-Para entender mais sobre imagens no Docker lei: `Container vs Imagens`
+### Para entender mais sobre imagens no Docker leia: [`Container vs Imagens`](https://github.com/Docker-Journey/docker-learning/blob/main/01-container/02-container.md)
 ---
 
 ## Tipos de Imagens no Docker Hub
