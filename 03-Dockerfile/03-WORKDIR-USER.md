@@ -111,6 +111,68 @@ COPY --chown=repl:repl . .
 CMD ["python", "main.py"]
 ```
 
+## Exercícios Práticos de Fixação
+
+Exercício 1: Configuração do Usuário
+
+Você terminou o código Python para o pipeline que estava construindo
+e recebeu o feedback da equipe. Para tornar a imagem do Docker do seu pipeline
+mais segura, você deseja definir o usuário como `repl` antes que os arquivos
+do projeto sejam copiados para a imagem.
+A instrução `RUN` para criar o usuário `repl` já foi adicionada.
+
+Tarefa: Edite a terceira linha do Dockerfile para definir o usuário como repl.
+```dockerfile
+FROM python:3.10
+RUN adduser -D repl
+# Edite a linha abaixo:
+
+COPY . .
+```
+
+Exercício 2: Definir o Diretório de Trabalho
+
+Ao dar os toques finais na imagem do Docker do pipeline,
+você quer deixar claro que todos os arquivos do projeto estarão
+no diretório inicial do usuário `repl`, definindo o diretório de trabalho como `/home/repl`.
+
+Tarefa: Edite a quarta linha do Dockerfile para que todas as próximas instruções sejam executadas em `/home/repl`.
+
+```dockerfile
+FROM python:3.10
+RUN adduser -D repl
+USER repl
+# Edite a linha abaixo:
+
+COPY . .
+```
+**Gabarito dos Exercícios**
+
+Resposta do Exercício 1
+
+```dockerfile
+FROM python:3.10
+RUN adduser -D repl
+USER repl
+COPY . .
+```
+Resposta do Exercício 2
+
+```dockerfile
+FROM python:3.10
+RUN adduser -D repl
+USER repl
+WORKDIR /home/repl
+COPY . .
+```
+
+
+
+
+
+
+
+
 
 
 
