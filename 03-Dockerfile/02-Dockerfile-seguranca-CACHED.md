@@ -57,7 +57,8 @@ Isso força o Docker a reexecutar o `RUN npm install` do zero em todo build,
 baixando dependências novamente.
 
 #### Estrutura eficiente ✅
-```
+
+```dockerfile
 FROM node:18-alpine
 WORKDIR /app
 
@@ -105,7 +106,7 @@ invalidando o cache da etapa `COPY . ..`
 
 
 **Resposta do Exercício 2**
-```
+```dockerfile
 FROM python:3.10
 WORKDIR /app
 
@@ -155,7 +156,7 @@ Cenário: Temos um projeto em Python com os seguintes arquivos:
 
 Ordem Correta das Instruções (Do maior reuso para o menor)
 
-```Dockerfile
+```dockerfile
 # 1. Definição da Imagem Base
 FROM python:3.10
 
@@ -189,6 +190,31 @@ Cenário A: Você edita uma função no `pipeline.py` e executa o build
 5. `COPY pipeline.py .` --> Recompilado em milissegundos (Apenas o arquivo `pipeline.py` novo é copiado)
 
 > Resultado: O build é concluído em 1 ou 2 segundos.
+
+Cenário B: O que aconteceria se a ordem estivesse errada?
+
+Se tivéssemos feito `COPY . . `antes do `RUN pip install`:
+
+```dockerfile
+# ESTRUTURA INEFICIENTE ❌
+FROM python:3.10
+WORKDIR /app
+COPY . .                            # Copia pipeline.py E requirements.txt
+RUN pip install -r requirements.txt  # Quebra de cache aqui!
+CMD ["python", "pipeline.py"]
+```
+
+1. Quando você altera o `pipeline.py`, a instrução `COPY . .` detecta a mudança e quebra o cache.
+
+2. Como o `RUN pip install` vem depois, o Docker é forçado a baixar e reinstalar todas as bibliotecas do Python do zero.
+
+> Resultado: O build demora de 1 a 3 minutos desnecessariamente a cada pequena alteração no código.
+
+
+
+
+
+
 
 
 
