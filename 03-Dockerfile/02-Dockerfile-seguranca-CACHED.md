@@ -94,10 +94,33 @@ Pergunta: Se você alterar apenas uma linha de código no arquivo `main.py` e ro
 2. A instrução `RUN pip install -r requirements.txt` usará cache? Por quê?
 
 
+**Gabarito dos Exercícios**
+
+Resposta do Exercício 1
+
+1. Não. O arquivo `main.py` foi alterado, portanto o conteúdo do diretório mudou,
+invalidando o cache da etapa `COPY . ..`
+
+2. Não. Devido ao efeito dominó, uma vez que o cache foi quebrado na etapa `COPY . .` (que veio antes), todas as etapas seguintes (RUN pip install...) são forçadas a executar do zero.
 
 
+**Resposta do Exercício 2**
+```
+FROM python:3.10
+WORKDIR /app
 
+# 1. Copia apenas o manifesto de dependências
+COPY requirements.txt ./
 
+# 2. Instala os pacotes
+RUN pip install -r requirements.txt
+
+# 3. Copia o restante dos arquivos do projeto
+COPY . .
+
+CMD ["python", "main.py"]
+
+```
 
 
 
