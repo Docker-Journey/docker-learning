@@ -122,9 +122,73 @@ CMD ["python", "main.py"]
 
 ```
 
+## Ordem das Instruções
 
+Essa conexão entre Ordem das Instruções e Reaproveitamento de Cache
+é um dos pilares mais importantes para quem trabalha com Docker no dia a dia.
 
+Quando alinhamos a ordem das instruções à frequência de mudança dos arquivos,
+evitamos perder minutos preciosos a cada `build`.
 
+### A Lógica por Trás da Ordem
+O Docker constrói imagens de cima para baixo.
+Se qualquer camada sofrer alteração, o cache quebra daquela linha em diante.
+
+Portanto, a regra de ouro é ordenar o Dockerfile do Menos Frequente para o Mais Frequente:
+
+```
+[Imagem Base]        --> Muda raramente (ex: Ubuntu, Python, Node)
+      ↓
+[Instalação de Pacotes] --> Muda quando adicionamos dependências novas
+      ↓
+[Código-Fonte]         --> Muda constantemente a cada alteração/bugfix
+
+```
+
+**Resolução do Exercício**
+
+Cenário: Temos um projeto em Python com os seguintes arquivos:
+
+1. `requirements.txt` (pacotes e bibliotecas — muda com pouca frequência)
+
+2. `pipeline.py` (código-fonte com as regras de negócio — muda o tempo todo)
+
+Ordem Correta das Instruções (Do maior reuso para o menor)
+
+```Dockerfile
+# 1. Definição da Imagem Base
+FROM python:3.10
+
+# 2. Definição do Diretório de Trabalho
+WORKDIR /app
+
+# 3. Copia APENAS o arquivo de dependências (Muda com pouca frequência)
+COPY requirements.txt .
+
+# 4. Instala os pacotes do pipeline (Muda com pouca frequência)
+RUN pip install -r requirements.txt
+
+# 5. Copia o código do pipeline (Muda com MUITA frequência)
+COPY pipeline.py .
+
+# 6. Comando de inicialização
+CMD ["python", "pipeline.py"]
+```
+**Explicação Detalhada do Processo**
+
+Cenário A: Você edita uma função no `pipeline.py` e executa o build
+
+1. `FROM python:3.10` --> CACHED (Não mudou)
+
+2. `WORKDIR /app` ---> CACHED (Não mudou)
+
+3. COPY requirements.txt . --> CACHED (O arquivo não sofreu alterações)
+
+4. `RUN pip install -r requirements.txt` ---> CACHED (A camada anterior não mudou, então os pacotes não são baixados novamente)
+
+5. `COPY pipeline.py .` --> Recompilado em milissegundos (Apenas o arquivo `pipeline.py` novo é copiado)
+
+> Resultado: O build é concluído em 1 ou 2 segundos.
 
 
 
