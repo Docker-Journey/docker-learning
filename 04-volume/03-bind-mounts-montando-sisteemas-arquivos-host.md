@@ -384,6 +384,12 @@ Ambas as abordagens alcançam exatamente o mesmo resultado: ocultar temporariame
 
 O que estudar a seguir:
 
-⬅️ Volte para 01 - Volumes
+⬅️ Volte para [01 - conceito de volumes](https://github.com/Docker-Journey/docker-learning/blob/main/04-volume/01-volumes.md)
 
-⬅️ Volte para 02 - Comandos intermediários
+⬅️ Volte para [02 - Comandos intermediários](https://github.com/Docker-Journey/docker-learning/blob/main/04-volume/02-comandos-intermediarios-limpeza-automatica.md)
+
+🔄 Você está aqui [03 - Montando o Sistema de Arquivos do Host (Bind Mounts)](https://github.com/Docker-Journey/docker-learning/blob/main/04-volume/03-bind-mounts-montando-sisteemas-arquivos-host.md)
+
+➡️ Vá para [04 - Volumes persistentes](https://github.com/Docker-Journey/docker-learning/blob/main/04-volume/04-volume-persistente.md)
+
+
