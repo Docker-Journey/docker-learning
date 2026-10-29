@@ -1,6 +1,6 @@
 # 1. Volume Persistente no Docker
 
-## 1. O que é um Volume Persistente no Docker?
+## 1. O que é um Volume persistente no Docker?
 
 **Por que os Volumes existem?**
 
@@ -11,7 +11,7 @@ Os Volumes Persistentes surgiram para resolver esse problema: eles funcionam com
 gerenciado diretamente pelo Docker. O volume existe independentemente do contêiner: você pode criar, 
 parar ou destruir contêineres quantas vezes quiser, e os seus dados continuarão intactos dentro do volume.
 
-## 2. Como Funciona um Volume
+## 2. Como funciona um Volume
 
 Imagine o contêiner como um computador de uma lan house:
 
@@ -59,7 +59,7 @@ Cria um novo espaço de armazenamento isolado no Docker.
 ```
 docker volume create sqldata
 ```
-**B. Listar Volumes Existing (docker volume ls)**
+**B. Listar Volumes existing (docker volume ls)**
 
 Exibe a lista com todos os volumes criados no seu ambiente Docker.
 
@@ -72,7 +72,7 @@ DRIVER    VOLUME NAME
 local     sqldata
 ```
 
-**C. Inspecionar Detalhes do Volume (docker volume inspect)**
+**C. Inspecionar detalhes do Volume (docker volume inspect)**
 
 Retorna um JSON detalhado contendo metadados do volume: data de criação, driver utilizado e o caminho exato onde ele está montado (Mountpoint).
 
@@ -86,14 +86,14 @@ Exclui definitivamente um volume e todos os dados armazenados nele. Atenção: O
 docker volume rm sqldata
 ```
 
-**E. Limpeza Geral de Volumes Órfãos (docker volume prune)**
+**E. Limpeza geral de Volumes órfãos (docker volume prune)**
 
 Remove de uma só vez todos os volumes que não estão associados a nenhum contêiner existente no sistema.
 ```
 docker volume prune
 ```
 
-## 5. Como Anexar um Volume a um Contêiner
+## 5. Como anexar um Volume a um contêiner
 
 Para conectar o volume a um contêiner durante a inicialização, usamos a flag -v no comando docker run.
 
@@ -103,7 +103,7 @@ Sintaxe do Comando:
 
 ---
 
-Exemplo Prático (Banco de Dados PostgreSQL):
+Exemplo prático (Banco de Dados PostgreSQL):
 
 ```
 # 1. Criamos o volume gerenciado pelo Docker
@@ -136,7 +136,7 @@ Um Volume Driver define **como** e **onde** os dados do volume serão fisicament
                                └──► Driver Cloud (EBS/EFS)  ──► Salva na Nuvem (AWS/Azure)
 ```
 
-**Tipos Mais Comuns de Drivers:**
+**Tipos mais comuns de Drivers:**
 
 1. local (Padrão do Docker):
 
@@ -156,7 +156,7 @@ Permitem conectar os volumes diretamente aos serviços de armazenamento em nuvem
 
 Caso de uso: Se o servidor virtual da AWS pifar, a nuvem aloca um novo servidor em segundos, reconecta o volume EBS e a aplicação volta a rodar sem perder nada.
 
-## 7. Comparativo Resumido: Bind Mount vs. Docker Volume
+## 7. Comparativo resumido: Bind Mount vs. Docker Volume
 
 | **Recurso** | **Bind Mount (`-v /pasta/local:...`)** | **Docker Volume (`-v meu_volume:...`)** |
 |---|---|---|
@@ -166,7 +166,8 @@ Caso de uso: Se o servidor virtual da AWS pifar, a nuvem aloca um novo servidor 
 | **Compartilhamento** | Difícil entre múltiplos contêineres. | **Fácil e nativo** entre múltiplos contêineres. |
 | **Uso principal** | Código-fonte em **desenvolvimento** (live-reload). | Bancos de dados e arquivos em **produção**. |
 
-8. Resumo para Lembrar Sempre
+8. Resumo para Llembrar sempre
+  
 1. Containers são efêmeros; Volumes são persistentes.
 
 2. `docker volume create <nome>` cria o volume isolado.
@@ -177,3 +178,12 @@ Caso de uso: Se o servidor virtual da AWS pifar, a nuvem aloca um novo servidor 
 
 5. Apagar o contêiner **NUNCA** apaga o volume associado a ele.
 
+--- 
+
+O que estudar a seguir:
+
+⬅️ Volte para [03 - Bind mounts sistemas de arquivos host](https://github.com/Docker-Journey/docker-learning/blob/main/04-volume/03-bind-mounts-montando-sisteemas-arquivos-host.md)
+
+⬅️ Volte para [02 - Comandos intermediários docker](https://github.com/Docker-Journey/docker-learning/blob/main/04-volume/02-comandos-intermediarios-limpeza-automatica.md)
+
+⬅️ Volte para [01 - Volumes](https://github.com/Docker-Journey/docker-learning/blob/main/04-volume/01-volumes.md)
