@@ -79,3 +79,9 @@ Retorna um JSON detalhado contendo metadados do volume: data de criação, drive
 ```Bash
 docker volume inspect sqldata
 ```
+D. Remover um Volume (docker volume rm)
+Exclui definitivamente um volume e todos os dados armazenados nele. Atenção: O volume só pode ser removido se não estiver conectado a nenhum contêiner ativo ou parado.
+
+```Bash
+docker volume rm sqldata
+```
