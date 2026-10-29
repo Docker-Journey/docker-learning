@@ -85,3 +85,10 @@ Exclui definitivamente um volume e todos os dados armazenados nele. Atenção: O
 ```Bash
 docker volume rm sqldata
 ```
+
+**E. Limpeza Geral de Volumes Órfãos (docker volume prune)**
+
+Remove de uma só vez todos os volumes que não estão associados a nenhum contêiner existente no sistema.
+```
+docker volume prune
+```
