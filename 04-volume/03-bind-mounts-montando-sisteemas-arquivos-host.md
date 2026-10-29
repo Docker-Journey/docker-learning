@@ -160,6 +160,8 @@ docker run -d -v $(pwd)/config.json:/app/config.json:ro python:3.10
 ```
 A adição da tag :ro no final do -v garante que o container não consiga modificar o arquivo original no Hos
 
+---
+
 
 **Exercício 01:** Mapeando Diretório Atual com Bind Mount
 
@@ -172,3 +174,39 @@ mapeando a pasta atual da máquina host ($(pwd)) para o diretório de arquivos e
 docker run -d -p 8080:80 -v $(pwd):/usr/share/nginx/html nginx
 ```
 
+**Exercício 02:**Dessectando o Comando Peça por Peça
+
+*Passando um arquivo para um contêiner em execução*
+
+Sua gerente ficou satisfeita com seu novo conhecimento sobre compartilhamento de dados no Docker e
+veio com um cenário para você investigar. O aplicativo principal da sua empresa se chama `crane` e 
+foi recentemente conteinerizado pelo seu departamento. Esse aplicativo é personalizado para cada
+cliente da empresa e, até agora, exigia criar e manter uma imagem de contêiner separada para cada cliente.
+Sua gerente quer que você encontre uma maneira de simplificar esse processo.
+
+Depois de revisar a configuração do contêiner, você vê que cada imagem de contêiner procura um arquivo
+chamado `customerdata.json` dentro da imagem. Esse arquivo contém as informações específicas do cliente
+e precisa ser incluído em cada imagem no momento da build.
+
+Instruções
+
+1. Execute a imagem do contêiner `crane` usando o comando apropriado do Docker. Você deve ver uma mensagem fazendo referência às informações padrão do usuário.
+
+2. Modifique o arquivo `~/workspace/customerdata.json` e atualize o campo `Company Name` para `The File Store`.
+
+3. Execute novamente a imagem do contêiner crane, desta vez passando o arquivo `~/workspace/customerdata.json` para o caminho `/customerdata.json` no contêiner.
+Certifique-se de usar exatamente os caminhos mostrados.
+
+
+```
+docker run --rm -v ~/workspace/customerdata.json:/customerdata.json crane
+```
+
+| **Pedaço do Comando**           | **O que é?**                  | **Explicação Detalhada**                                                                                             |
+|---------------------------------|-------------------------------|----------------------------------------------------------------------------------------------------------------------|
+| `docker run`                    | **Ação**                      | Cria e inicia um novo container.                                                                                     |
+| `--rm`                          | **Instrução de Limpeza**      | Deleta o container automaticamente assim que ele terminar de rodar (para não acumular lixo no terminal).             |
+| `-v`                            | **Flag de Volume/Bind Mount** | Indica que vamos fazer uma "ponte" entre o seu computador e o container.                                             |
+| `~/workspace/customerdata.json` | **Caminho no HOST (Seu PC)**  | O arquivo real que está salvo no seu computador/terminal. *(Fica SEMPRE à esquerda dos dois pontos `:`)*.           |
+| `/customerdata.json`            | **Caminho no CONTAINER**      | Onde o aplicativo de dentro do container espera encontrar o arquivo. *(Fica SEMPRE à direita dos dois pontos `:`)*. |
+| `crane`                         | **Nome da Imagem**            | A imagem base a partir da qual o container será criado. *(Vem SEMPRE no final do comando)*.                          |
