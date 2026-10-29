@@ -37,7 +37,7 @@ todos os seus arquivos estarão lá exatamente como você deixou.
                         │  Dados / Uploads      │
                         └───────────────────────┘
 ```
-## 3. Onde os Volumes Ficam Armazenados?
+## 3. Onde os Volumes ficam armazenados?
 
 Diferente do Bind Mount (em que você escolhe manualmente uma pasta no seu computador, como C:\Projetos), 
 o Docker salva os volumes em uma área privada e isolada do próprio sistema do Docker:
@@ -48,3 +48,34 @@ o Docker salva os volumes em uma área privada e isolada do próprio sistema do 
 
 Você raramente precisa acessar essa pasta diretamente pelo seu sistema operacional; o gerenciamento é feito sempre pelos comandos da linha de comando (docker volume).
 
+
+## 4. Gerenciando Volumes na prática (Linha de Comando)
+
+Para criar e gerenciar seus volumes, o Docker disponibiliza a família de comandos docker volume:
+
+**A. Criar um Volume (docker volume create)**
+
+Cria um novo espaço de armazenamento isolado no Docker.
+```
+docker volume create sqldata
+```
+**B. Listar Volumes Existing (docker volume ls)**
+
+Exibe a lista com todos os volumes criados no seu ambiente Docker.
+
+```Bash
+docker volume ls
+```
+Saída esperada:
+```
+DRIVER    VOLUME NAME
+local     sqldata
+```
+
+**C. Inspecionar Detalhes do Volume (docker volume inspect)**
+
+Retorna um JSON detalhado contendo metadados do volume: data de criação, driver utilizado e o caminho exato onde ele está montado (Mountpoint).
+
+```Bash
+docker volume inspect sqldata
+```
