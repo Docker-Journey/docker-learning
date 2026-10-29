@@ -1,0 +1,50 @@
+# 1. Volume Persistente no Docker
+
+## 1. O que é um Volume Persistente no Docker?
+
+**Por que os Volumes existem?**
+
+Por padrão, os contêineres Docker são efêmeros (descartáveis). Se você cria um contêiner,
+insere registros em um banco de dados e depois apaga esse contêiner (docker rm), todos os dados salvos desaparecem para sempre.
+
+Os Volumes Persistentes surgiram para resolver esse problema: eles funcionam como um "disco rígido externo virtuais" 
+gerenciado diretamente pelo Docker. O volume existe independentemente do contêiner: você pode criar, 
+parar ou destruir contêineres quantas vezes quiser, e os seus dados continuarão intactos dentro do volume.
+
+## 2. Como Funciona um Volume
+
+Imagine o contêiner como um computador de uma lan house:
+
+Tudo o que você salva na área de trabalho dele é apagado quando você desliga a máquina.
+
+O Docker Volume é como um Pendrive: você conecta o pendrive no computador da lan house,
+salva seus arquivos nele e, quando o computador é desligado, você desconecta o pendrive com todos os seus dados salvos com segurança.
+
+Mais tarde, você pode conectar esse mesmo pendrive em um outro computador totalmente novo (outro contêiner) e
+todos os seus arquivos estarão lá exatamente como você deixou.
+
+```
+┌──────────────────────────────┐          ┌──────────────────────────────┐
+│         CONTAINER A          │          │         CONTAINER B          │
+│   (Pode ser destruído)       │          │   (Pode ser um novo banco)   │
+└──────────────┬───────────────┘          └──────────────┬───────────────┘
+               │                                         │
+               │        ┌───────────────────────┐        │
+               └───────►│    DOCKER VOLUME      │◄───────┘
+                        │  (sqldata / persistent)│
+                        │                       │
+                        │  Dados do Banco de    │
+                        │  Dados / Uploads      │
+                        └───────────────────────┘
+```
+## 3. Onde os Volumes Ficam Armazenados?
+
+Diferente do Bind Mount (em que você escolhe manualmente uma pasta no seu computador, como C:\Projetos), 
+o Docker salva os volumes em uma área privada e isolada do próprio sistema do Docker:
+
+- No Linux (Nativo): Fica em /var/lib/docker/volumes/
+
+- No Windows / macOS: Fica armazenado dentro da máquina virtual leve gerenciada pelo Docker Desktop.
+
+Você raramente precisa acessar essa pasta diretamente pelo seu sistema operacional; o gerenciamento é feito sempre pelos comandos da linha de comando (docker volume).
+
