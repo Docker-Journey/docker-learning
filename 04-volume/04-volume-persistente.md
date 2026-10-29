@@ -124,4 +124,56 @@ docker run -d \
 
 3. Se você rodar `docker rm -f meu_banco`, o contêiner morre, mas o volume dados_postgres continua existindo intacto no seu computador.
 
+## 6. O que são Volume Drivers?
+
+Um Volume Driver define **como** e **onde** os dados do volume serão fisicamente salvos.
+
+```
+┌──► Driver "local" (Padrão) ──► Salva no disco rígido local
+                               │
+[ DOCKER VOLUME DRIVER ] ──────┼──► Driver "nfs / cifs"     ──► Salva em Servidor de Rede
+                               │
+                               └──► Driver Cloud (EBS/EFS)  ──► Salva na Nuvem (AWS/Azure)
+```
+
+**Tipos Mais Comuns de Drivers:**
+
+1. local (Padrão do Docker):
+
+Os dados são salvos no próprio disco rígido da máquina onde o Docker está rodando.
+
+É o driver utilizado na esmagadora maioria dos casos de desenvolvimento e servidores únicos.
+
+2. nfs (Network File System) / cifs (SMB do Windows):
+
+Permite que o volume salve os dados em um servidor de arquivos compartilhado na rede interna da empresa.
+
+Caso de uso: Múltiplos servidores com Docker rodando ao mesmo tempo e acessando a mesma pasta de arquivos centralizada.
+
+3. Drivers de Nuvem (AWS EBS/EFS, Azure Files, Google Cloud Storage):
+
+Permitem conectar os volumes diretamente aos serviços de armazenamento em nuvem de grande porte.
+
+Caso de uso: Se o servidor virtual da AWS pifar, a nuvem aloca um novo servidor em segundos, reconecta o volume EBS e a aplicação volta a rodar sem perder nada.
+
+## 7. Comparativo Resumido: Bind Mount vs. Docker Volume
+
+| **Recurso** | **Bind Mount (`-v /pasta/local:...`)** | **Docker Volume (`-v meu_volume:...`)** |
+|---|---|---|
+| **Quem gerencia?** | O próprio usuário da máquina. | O motor do Docker (`docker volume`). |
+| **Onde fica salvo?** | Qualquer pasta escolhida (ex.: `~/projetos`). | Pasta interna do Docker (`/var/lib/docker/volumes/`). |
+| **Desempenho (I/O)** | Menor no Windows/Mac (devido à tradução de SO). | **Nativo e de alta velocidade** no Linux/Virtual Machine. |
+| **Compartilhamento** | Difícil entre múltiplos contêineres. | **Fácil e nativo** entre múltiplos contêineres. |
+| **Uso principal** | Código-fonte em **desenvolvimento** (live-reload). | Bancos de dados e arquivos em **produção**. |
+
+8. Resumo para Lembrar Sempre
+1. Containers são efêmeros; Volumes são persistentes.
+
+2. `docker volume create <nome>` cria o volume isolado.
+
+3. `-v <nome_do_volume>:<caminho_no_container>` conecta o volume ao contêiner.
+
+4. Volume Drivers definem **onde** o arquivo é guardado (disco local, rede ou nuvem).
+
+5. Apagar o contêiner **NUNCA** apaga o volume associado a ele.
 
