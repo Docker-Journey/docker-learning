@@ -95,7 +95,7 @@ No diagrama, `shared_data_volume` é o volume. Os dois contêineres montam esse 
 Vamos focar nesta primeira parte: Comandos Úteis, `--rm`, Bind Mounts e Volumes Persistentes.
 
 1. [Comandos intermediários do Docker](https://github.com/Docker-Journey/docker-learning/blob/main/04-volume/02-comandos-intermediarios-limpeza-automatica.md)
-2. Montando o sistema de arquivos do host
+2. [Montando o sistema de arquivos do host](https://github.com/Docker-Journey/docker-learning/blob/main/04-volume/03-bind-mounts-montando-sisteemas-arquivos-host.md)
 3. Volumes persistentes
 
 
