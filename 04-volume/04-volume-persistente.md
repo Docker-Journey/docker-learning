@@ -92,3 +92,36 @@ Remove de uma só vez todos os volumes que não estão associados a nenhum cont�
 ```
 docker volume prune
 ```
+
+## 5. Como Anexar um Volume a um Contêiner
+
+Para conectar o volume a um contêiner durante a inicialização, usamos a flag -v no comando docker run.
+
+Sintaxe do Comando:
+
+<img width="879" height="129" alt="Image" src="https://github.com/user-attachments/assets/785ca024-3f12-41b9-92e1-ec53b2c35669" />
+
+---
+
+Exemplo Prático (Banco de Dados PostgreSQL):
+
+```
+# 1. Criamos o volume gerenciado pelo Docker
+docker volume create dados_postgres
+
+# 2. Subimos o container do PostgreSQL conectando o volume na pasta interna do banco
+docker run -d \
+  --name meu_banco \
+  -v dados_postgres:/var/lib/postgresql/data \
+  postgres:15
+```
+
+**O que aconteceu aqui?**
+
+1. O Docker conectou o volume `dados_postgres` ao diretório `/var/lib/postgresql/data` dentro do contêiner.
+
+2. Todas as tabelas, índices e dados criados pelo PostgreSQL serão salvos diretamente no volume `dados_postgres`.
+
+3. Se você rodar `docker rm -f meu_banco`, o contêiner morre, mas o volume dados_postgres continua existindo intacto no seu computador.
+
+
