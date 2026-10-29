@@ -10,7 +10,7 @@
 
 </div>
 
-## O que é Volume
+## 1. O que é Volume
 
 Um volume no Docker é um mecanismo criado para **salvar e persistir dados fora** do ciclo de vida dos containers.
 
@@ -94,9 +94,13 @@ No diagrama, `shared_data_volume` é o volume. Os dois contêineres montam esse 
 ## O que vamos estudar?
 Vamos focar nesta primeira parte: Comandos Úteis, `--rm`, Bind Mounts e Volumes Persistentes.
 
-1. [Comandos intermediários do Docker](https://github.com/Docker-Journey/docker-learning/blob/main/04-volume/02-comandos-intermediarios-limpeza-automatica.md)
-2. [Montando o sistema de arquivos do host](https://github.com/Docker-Journey/docker-learning/blob/main/04-volume/03-bind-mounts-montando-sisteemas-arquivos-host.md)
-3. Volumes persistentes
+1. Você está em[ 01 - Volumes](https://github.com/Docker-Journey/docker-learning/blob/main/04-volume/01-volumes.md)
+
+2. ➡️ [02 - Comandos intermediários do Docker](https://github.com/Docker-Journey/docker-learning/blob/main/04-volume/02-comandos-intermediarios-limpeza-automatica.md)
+
+3. ➡️ [03- Montando o sistema de arquivos do host](https://github.com/Docker-Journey/docker-learning/blob/main/04-volume/03-bind-mounts-montando-sisteemas-arquivos-host.md)
+
+4. ➡️ [04- Volumes persistentes](https://github.com/Docker-Journey/docker-learning/blob/main/04-volume/04-volume-persistente.md)
 
 
 ---
